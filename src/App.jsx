@@ -1,24 +1,42 @@
-import React from 'react';
-import { useState } from 'react';
-import feedbackData from './data/feedbackData';
+import React, { useContext } from 'react';
 import FeedbackList from './components/FeedbackList';
 import FeedbackForm from './components/FeedbackForm';
+import Contact from './pages/Contact';
+import Header from './components/Header';
+import Posts from './components/Posts';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import FeedbackProvider, { FeedbackContext } from './components/Context/FeedbackContext';
+import './style.css';
 
-function App(){
-    const[feedback,setFeedback] = useState(feedbackData);
+function AppContent() {
+  const { feedback, setFeedback } = useContext(FeedbackContext);
 
-    function onAdd(newFeedback) {
-        setFeedback([newFeedback,...feedback])
-    }
-
-    const deleteFeedback = (id) => {
-        setFeedback(feedback.filter((item) => item.id !== id));
-    }
-    return(
-        <>
-            <FeedbackForm onAdd={onAdd} />
-            <FeedbackList feedback={feedback} deleteFeedback={deleteFeedback} />
-        </>
-    )
+  return (
+    <Router>
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div>
+              <FeedbackForm/>
+              <FeedbackList feedback={feedback}/>
+            </div>
+          }
+        />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/posts/:id/:slug" element={<Posts />} />
+      </Routes>
+    </Router>
+  );
 }
+
+function App() {
+  return (
+    <FeedbackProvider>
+      <AppContent />
+    </FeedbackProvider>
+  );
+}
+
 export default App;

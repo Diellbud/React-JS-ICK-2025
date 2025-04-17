@@ -5,11 +5,11 @@ import FeedbackList from "../components/FeedbackList";
 
 function ReviewPage() {
     return(
-        <>
+        <div >
             <Feedback/> 
             <Review/>
             <FeedbackList/>
-        </>
+        </div>
     )
 }
 export default ReviewPage;
