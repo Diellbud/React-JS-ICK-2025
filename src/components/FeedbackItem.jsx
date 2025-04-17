@@ -10,8 +10,7 @@ function FeedbackItem({feedback,deleteFeedback }) {
             <Card>
                 <div>{feedback.rating}</div>
                 <CardTitle feedback={feedback}/>
-                <button onClick={()=>{deleteFeedback(feedback.id)}}></button>
-                <FaTimes color="purple"/>
+                <FaTimes onClick={()=>{deleteFeedback(feedback.id)}} color="purple"/>
                 <CardImage src={feedback.image}/>
                 <div>{feedback.text}</div>
             </Card>
